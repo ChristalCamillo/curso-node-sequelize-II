@@ -61,10 +61,25 @@ class Controller {
     }
   }
 
+  //exemplo de função usando parametro especifico
+  //   async exclui(req, res) {
+  //     const { id } = req.params;
+  //     try {
+  //       await this.entidadeService.excluiRegistro(Number(id));
+  //       return res.status(200).json({ mensagem: `id ${id} deletado` });
+  //     } catch (erro) {
+  //       return res.status (500).json({ erro: erro.message });
+  //     }
+  //   }
+  // }
+
   async exclui(req, res) {
+    const { ...params } = req.params;
     const { id } = req.params;
+
+    const where = converteIds(params);
     try {
-      await this.entidadeService.excluiRegistro(Number(id));
+      await this.entidadeService.excluiRegistro(where);
       return res.status(200).json({ mensagem: `id ${id} deletado` });
     } catch (erro) {
       return res.status (500).json({ erro: erro.message });
